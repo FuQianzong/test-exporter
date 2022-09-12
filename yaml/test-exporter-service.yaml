@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    k8s-app: test-exporter
+  name: test-exporter
+  namespace: monitoring
+spec:
+  type: ClusterIP
+  ports:
+  - name: test-exporter-service-port
+    port: 9130
+    protocol: TCP
+    targetPort: http-test-exporter
+  selector:
+    app: test-exporter
+

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: test-exporter
+  name: test-exporter
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-exporter
+  template:
+    metadata:
+      labels:
+        app: test-exporter
+      namespace: monitoring
+    spec:
+      restartPolicy: Always
+      containers:
+        ports:
+        - containerPort: 9031
+          name: http-test-exporter
+        args:
+          - --dp=/data/proc
+          - --ep=9031
+        name: test-exporter
+        image: test-exporter:0.0.1
+        volumeMounts:
+          - mountPath: /data/proc
+            name: data
+    volumes:
+      - name: data
+        hostPath:
+          path: /proc

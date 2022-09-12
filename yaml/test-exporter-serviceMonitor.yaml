@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    k8s-app: test-exporter
+    release: eve-prometheus-operator
+  name: monitor-test-exporter
+  namespace: monitoring
+spec:
+  endpoints:
+  - interval: 1m
+    scrapeTimeout: 30s
+    port: test-exporter-service-port
+    scheme: http
+    tlsConfig:
+      insecureSkipVerify: true
+  jobLabel: k8s-app
+  selector:
+    matchLabels:
+      k8s-app: test-exporter
+

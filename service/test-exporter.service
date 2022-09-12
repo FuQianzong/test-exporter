@@ -1,0 +1,12 @@
+[Unit]
+Description=A Prometheus-exporter server daemon
+
+[Service]
+ExecStart=/usr/local/test-exporter/test-exporter
+Type=simple
+KillMode=process
+Restart=on-failure
+RestartSec=30s
+
+[Install]
+WantedBy=multi-user.target
